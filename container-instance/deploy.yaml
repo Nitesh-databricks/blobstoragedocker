@@ -1,0 +1,36 @@
+apiVersion: 2019-12-01
+location: eastus
+name: blobstoretest
+properties:
+  containers:
+  - name: blobstoretest
+    properties:
+      environmentVariables:
+        - name: 'AZURE_MOUNT_POINT'
+          value: '/mnt/container'
+        - name: 'AZURE_STORAGE_ACCOUNT'
+          value: 'testcontainerssh'
+        - name: 'AZURE_STORAGE_ACCOUNT_CONTAINER'
+          value: 'testblob'
+        - name: 'AZURE_STORAGE_ACCESS_KEY'
+          value: '83ltLW35TChvUr9OVFIcKoxB/3G88HnZvxNB/65KS15I6G6n00AsZQIu5ohoTesI3U7MoN1L+CcI+AStwS2/iQ=='          
+      image: docker.io/neethirocks/blobstoragetest:1.1
+      ports: []
+      resources:
+        requests:
+          cpu: 1.0
+          memoryInGB: 1.5
+      volumeMounts:
+      - mountPath: /mnt/
+        name: filesharevolume        
+  osType: Linux
+  restartPolicy: OnFailure
+  volumes:
+  - name: filesharevolume
+    azureFile:
+      sharename: blobshare
+      storageAccountName: testcontainerssh
+      storageAccountKey: 83ltLW35TChvUr9OVFIcKoxB/3G88HnZvxNB/65KS15I6G6n00AsZQIu5ohoTesI3U7MoN1L+CcI+AStwS2/iQ==
+    
+tags: null
+type: Microsoft.ContainerInstance/containerGroups

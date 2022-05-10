@@ -1,0 +1,19 @@
+version: '3'
+services:
+  mainservice:
+    image: neethirocks/blobstoragetest:1.1
+    container_name: mainservice
+    privileged: true
+    environment:
+      - AZURE_MOUNT_POINT=/mnt/container
+      - AZURE_STORAGE_ACCOUNT=testcontainerssh
+      - AZURE_STORAGE_ACCOUNT_CONTAINER=testblob
+      - AZURE_STORAGE_ACCESS_KEY=83ltLW35TChvUr9OVFIcKoxB/3G88HnZvxNB/65KS15I6G6n00AsZQIu5ohoTesI3U7MoN1L+CcI+AStwS2/iQ==
+    volumes:
+      - data:/mnt
+
+volumes:
+    data:
+      driver: cloudstor:testcontainerssh
+      driver_opts:
+        share: blobshare
